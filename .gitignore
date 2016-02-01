@@ -1,12 +1,17 @@
-*.class
+# Windows folder file
+.folder
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+# NodeJS
+gulp/node_modules/
 
-# Package Files #
-*.jar
-*.war
-*.ear
+#Jetbrains Idea
+.idea/
+out/
+*.iml
+*.ipr
+*.iws
+*.ids
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+# backup files
+*.*~
+*.bak
