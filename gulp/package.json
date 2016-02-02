@@ -1,5 +1,5 @@
 {
-  "name": "stz-select",
+  "name": "selectum",
   "version": "1.0.0",
   "description": "VanillaJS custom HTML5 dropdown select, which uses data attributes for configuration, native JS events to control dependened selects, updates URL via History API and can select value on initiation from URL search params, adds CSS selector to vastly show other selects subsets.",
   "main": "gulpfile.js",
