@@ -21,14 +21,14 @@
     function Selectum( el, options ) {
         this.el = el;
         this.options = Selectum.extend( this.options, {
-            picker: this.el.dataset.hasOwnProperty('stzSelectPicker'),
-            picked: this.el.dataset.hasOwnProperty('stzSelectPicked'),
-            emit: this.el.dataset.hasOwnProperty('stzSelectEmit') ? this.el.dataset.stzSelectEmit : false,
-            emitReset: this.el.dataset.hasOwnProperty('stzSelectEmitReset') ? this.el.dataset.stzSelectEmitReset : false,
-            listen: this.el.dataset.hasOwnProperty('stzSelectListen') ? this.el.dataset.stzSelectListen : false,
-            listenReset: this.el.dataset.hasOwnProperty('stzSelectListenReset') ? this.el.dataset.stzSelectListenReset : false,
-            defaultText: this.el.dataset.hasOwnProperty('stzSelectPlaceholder') ? this.el.dataset.stzSelectPlaceholder : '',
-            updateUrl: this.el.dataset.hasOwnProperty('stzSelectUpdateUrl'),
+            picker: this.el.dataset.hasOwnProperty('selectumPicker'),
+            picked: this.el.dataset.hasOwnProperty('selectumPicked'),
+            emit: this.el.dataset.hasOwnProperty('selectumEmit') ? this.el.dataset.selectumEmit : false,
+            emitReset: this.el.dataset.hasOwnProperty('selectumEmitReset') ? this.el.dataset.selectumEmitReset : false,
+            listen: this.el.dataset.hasOwnProperty('selectumListen') ? this.el.dataset.selectumListen : false,
+            listenReset: this.el.dataset.hasOwnProperty('selectumListenReset') ? this.el.dataset.selectumListenReset : false,
+            defaultText: this.el.dataset.hasOwnProperty('selectumPlaceholder') ? this.el.dataset.selectumPlaceholder : '',
+            updateUrl: this.el.dataset.hasOwnProperty('selectumUpdateUrl'),
         });
         Selectum.extend( this.options, options );
         this._init();
@@ -83,13 +83,13 @@
             style.id = 'czd-hiding-styles';
             document.head.appendChild(style);
         }
-        style.innerHTML = "[data-stz-select-list-hiddable]>[data-stz-select-hidden-unless='" + param+ "']{display:block}";
+        style.innerHTML = "[data-selectum-list-hiddable]>[data-selectum-hidden-unless='" + param+ "']{display:block}";
     }
 
     Selectum.prototype._setDocumentExternalClose = function() {
         var _this = this;
         document.addEventListener('click', function(e){
-            if (!(e.target.closest('[data-stz-select]'))) {
+            if (!(e.target.closest('[data-selectum]'))) {
                 if (_this.DOMElements.currentList.classList.contains('js-open')) {
                     _this.DOMElements.currentList.classList.remove('js-open');
                     _this._toggleArrows();
@@ -108,7 +108,6 @@
         listenReset: false,
         defaultText: '',
         updateUrl: false,
-        scrollToHash: true,
         callbacks: {}
     };
 
@@ -134,11 +133,11 @@
 
     Selectum.prototype._setDOMElements = function(){
         this.DOMElements = {};
-        this.DOMElements.currentFilter = this.el.querySelector('[data-stz-select-current]');
-        this.DOMElements.currentClickable = this.el.querySelector('[data-stz-select-clickable]') === null ? this.el : this.el.querySelector('[data-stz-select-clickable]');
-        this.DOMElements.resetButton = this.el.querySelector('[data-stz-select-reset]');
-        this.DOMElements.currentList = this.el.querySelector('[data-stz-select-list]');
-        this.DOMElements.currentListElement = this.el.querySelectorAll('[data-stz-select-li]');
+        this.DOMElements.currentFilter = this.el.querySelector('[data-selectum-current]');
+        this.DOMElements.currentClickable = this.el.querySelector('[data-selectum-clickable]') === null ? this.el : this.el.querySelector('[data-selectum-clickable]');
+        this.DOMElements.resetButton = this.el.querySelector('[data-selectum-reset]');
+        this.DOMElements.currentList = this.el.querySelector('[data-selectum-list]');
+        this.DOMElements.currentListElement = this.el.querySelectorAll('[data-selectum-li]');
     };
 
     Selectum.prototype._createResetModelEvent = function() {
@@ -189,7 +188,7 @@
                 _this._setSelected(null);
                 _this._setActive();
                 _this._emitResetEvent();
-                Selectum.urlUpdater(_this.el.dataset.stzSelect, '');
+                Selectum.urlUpdater(_this.el.dataset.selectum, '');
                 callCallback(this, 'reset');
             });
         }
@@ -203,7 +202,7 @@
                     _this.DOMElements.currentFilter.textContent = '';
                     _this.DOMElements.currentFilter.classList.add('js-raw');
                     _this._setDefaultPlaceholder();
-                    Selectum.urlUpdater(_this.el.dataset.stzSelect, '');
+                    Selectum.urlUpdater(_this.el.dataset.selectum, '');
                 }
                 if (_this.options.picked) {
                     _this.options.picked = false;
@@ -229,7 +228,7 @@
                 _this.DOMElements.currentFilter.classList.add('js-raw', 'i-arrow-bottom-disabled_after');
                 _this.DOMElements.currentFilter.classList.remove('i-arrow-bottom_after');
                 _this._setDefaultPlaceholder();
-                Selectum.urlUpdater(_this.el.dataset.stzSelect, '');
+                Selectum.urlUpdater(_this.el.dataset.selectum, '');
             });
         }
     }
@@ -264,11 +263,11 @@
                 _this.DOMElements.currentList.classList.remove('js-open');
                 _this.DOMElements.currentFilter.classList.remove('js-raw');
                 _this._toggleArrows();
-                _this.DOMElements.currentFilter.textContent = e.target.dataset.stzSelectVal;
-                _this._setSelected(e.target.dataset.stzSelectId);
+                _this.DOMElements.currentFilter.textContent = e.target.dataset.selectumVal;
+                _this._setSelected(e.target.dataset.selectumId);
                 _this._setActive();
                 _this._removeDisabled();
-                _this._showSubsets(e.target.dataset.stzSelectId);
+                _this._showSubsets(e.target.dataset.selectumId);
                 _this._updateUrl();
                 _this._emitEvent();
                 callCallback(this, 'click');
@@ -279,8 +278,8 @@
     Selectum.prototype._updateUrl = function() {
         if (this.options.updateUrl) {
             var url = location.search !== '' ? '&' : '?';
-            url += this.el.dataset.stzSelect + '=' + this.options.selected;
-            Selectum.urlUpdater(this.el.dataset.stzSelect, this.options.selected);
+            url += this.el.dataset.selectum + '=' + this.options.selected;
+            Selectum.urlUpdater(this.el.dataset.selectum, this.options.selected);
         }
     }
 
@@ -313,7 +312,7 @@
     Selectum.prototype._setActive = function(){
         var currentText = this.DOMElements.currentFilter.textContent;
         [].slice.call( this.DOMElements.currentListElement ).forEach( function(el) {
-            if (el.dataset.stzSelectVal === currentText) {
+            if (el.dataset.selectumVal === currentText) {
                 el.classList.add('js-current');
             } else {
                 el.classList.remove('js-current');
@@ -323,7 +322,7 @@
 
     Selectum.prototype._setFromSearchParams = function() {
         var data = location.search;
-        var type = this.el.dataset.stzSelect;
+        var type = this.el.dataset.selectum;
         if (data.length > 0) {
             var reg = /(\w+)=([\w\.\|]+)/gi;
             data = data.slice(1, data.length).split('&');
@@ -337,7 +336,7 @@
                 if (!this.options.picked) {
                     this.DOMElements.currentFilter.classList.remove('js-raw');
                 }
-                this.DOMElements.currentFilter.textContent = this.el.querySelector("[data-stz-select-id='" + data[type] + "']").dataset.stzSelectVal;
+                this.DOMElements.currentFilter.textContent = this.el.querySelector("[data-selectum-id='" + data[type] + "']").dataset.selectumVal;
                 this._setSelected(data[type]);
                 this._setActive();
                 this._removeDisabled();
@@ -352,8 +351,8 @@
 
 })(window);
 
-document.addEventListener('DOMContentLoaded', function(){
-    [].slice.call( document.querySelectorAll('[data-stz-select]') ).forEach( function(el) {
-        new Selectum(el);
-    });
-});
+//document.addEventListener('DOMContentLoaded', function(){
+//    [].slice.call( document.querySelectorAll('[data-selectum]') ).forEach( function(el) {
+//        new Selectum(el);
+//    });
+//});

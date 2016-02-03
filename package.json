@@ -1,0 +1,59 @@
+{
+  "name": "selectum",
+  "version": "1.0.0",
+  "description": "VanillaJS custom HTML5 dropdown select, which uses data attributes for configuration, native JS events to control dependened selects, updates URL via History API and can select value on initiation from URL search params, adds CSS selector to vastly show other selects subsets.",
+  "main": "dist/selectum.min.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:slantz/selectum.git"
+  },
+  "keywords": [
+    "HTML5",
+    "select",
+    "dropdown",
+    "custom",
+    "native",
+    "vanillaJS",
+    "data",
+    "attributes",
+    "history",
+    "history API",
+    "url",
+    "query",
+    "javascript event",
+    "style filter",
+    "dependent",
+    "picker",
+    "picked",
+    "toggel",
+    "emit",
+    "listen",
+    "reset",
+    "disable",
+    "on",
+    "off",
+    "constructor",
+    "module",
+    "closest",
+    "url params",
+    "options"
+  ],
+  "dependencies": {},
+  "ignore": [
+    "src",
+    "gulp",
+    ".bowerrc",
+    ".gitignore",
+    "package.json",
+    "bower.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "author": "Alex Kobylinskyi <kblnsk@gmail.com> (http://kblnsk.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/slantz/selectum/issues"
+  },
+  "homepage": "https://github.com/slantz/selectum"
+}

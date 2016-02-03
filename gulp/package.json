@@ -15,5 +15,6 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "https://github.com/slantz",
+  "repository" : "https://github.com/slantz/selectum",
   "license": "GNU GENERAL PUBLIC LICENSE"
 }

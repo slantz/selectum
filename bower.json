@@ -1,0 +1,16 @@
+{
+  "name": "selectum",
+  "version": "1.0.0",
+  "main": "dist/selectum.min.js",
+  "ignore": [
+    "src",
+    "gulp",
+    ".bowerrc",
+    ".gitignore",
+    "package.json",
+    "bower.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "dependencies": {}
+}
