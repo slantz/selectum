@@ -1,7 +1,7 @@
 # Selectum
 
-[![stz-scroll-into-view on NPM](https://img.shields.io/npm/v/stz-scroll-into-view.svg)](https://www.npmjs.com/package/stz-scroll-into-view)
-[![stz-scroll-into-view on Bower](https://img.shields.io/bower/v/stz-scroll-into-view.svg)](http://bower.io/search/?q=stz-scroll-into-view)
+[![selectum on NPM](https://img.shields.io/npm/v/selectum.svg)](https://www.npmjs.com/package/selectum)
+[![selectum on Bower](https://img.shields.io/bower/v/selectum.svg)](http://bower.io/search/?q=selectum)
 
 > Custom native HTML5 select, using data attributes and vanilla JS events which can update url search params via history API and show subsets of other custom selects. Can have reset button to pick any value or reset dependent selects. Has an ability to set default palceholder text. Click can be handled via plugin or set with special data attribute.
 
