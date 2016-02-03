@@ -137,7 +137,7 @@
         this.DOMElements.currentClickable = this.el.querySelector('[data-selectum-clickable]') === null ? this.el : this.el.querySelector('[data-selectum-clickable]');
         this.DOMElements.resetButton = this.el.querySelector('[data-selectum-reset]');
         this.DOMElements.currentList = this.el.querySelector('[data-selectum-list]');
-        this.DOMElements.currentListElement = this.el.querySelectorAll('[data-selectum-li]');
+        this.DOMElements.currentListElement = this.el.querySelectorAll('[data-selectum-id]');
     };
 
     Selectum.prototype._createResetModelEvent = function() {
@@ -172,8 +172,12 @@
         this._initResetButton();
     };
 
-    Selectum.prototype.onChange = function(funcName, handler) {
+    Selectum.prototype.on = function(funcName, handler) {
         this.options.callbacks[funcName].push(handler);
+    }
+
+    Selectum.prototype.off = function(funcName) {
+        delete this.options.callbacks[funcName];
     }
 
     Selectum.prototype._initResetButton = function() {
