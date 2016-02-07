@@ -20,7 +20,6 @@
 
 ##### Settings:
 - Attributes:
-  ```html
   - [data-selectum]
   - [data-selectum-clickable]
   - [data-selectum-current]
@@ -37,9 +36,8 @@
   - [data-selectum-placeholder]
   - [data-selectum-update-url]
   - [data-selectum-url-fetch]
-  ```
 - JS:
-  ```javascript
+```javascript
   new Selectum(el, {
     picker: true,
     picked: false,
@@ -51,7 +49,7 @@
     updateUrl: true,
     urlFetch: true
   });
-  ```
+```
 
 > IE10+
 
