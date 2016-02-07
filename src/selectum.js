@@ -29,6 +29,7 @@
             listenReset: this.el.dataset.hasOwnProperty('selectumListenReset') ? this.el.dataset.selectumListenReset : false,
             defaultText: this.el.dataset.hasOwnProperty('selectumPlaceholder') ? this.el.dataset.selectumPlaceholder : '',
             updateUrl: this.el.dataset.hasOwnProperty('selectumUpdateUrl'),
+            urlFetch: this.el.dataset.hasOwnProperty('selectumUrlFetch'),
         });
         Selectum.extend( this.options, options );
         this._init();
@@ -77,10 +78,10 @@
     };
 
     Selectum._showProperSubsets = function(param) {
-        var style = document.querySelector('#czd-hiding-styles');
+        var style = document.querySelector('#selectum-hiding-styles');
         if (!style) {
             style = document.createElement('style');
-            style.id = 'czd-hiding-styles';
+            style.id = 'selectum-hiding-styles';
             document.head.appendChild(style);
         }
         style.innerHTML = "[data-selectum-list-hiddable]>[data-selectum-hidden-unless='" + param+ "']{display:block}";
@@ -108,6 +109,7 @@
         listenReset: false,
         defaultText: '',
         updateUrl: false,
+        urlFetch: false,
         callbacks: {}
     };
 
@@ -325,28 +327,30 @@
     };
 
     Selectum.prototype._setFromSearchParams = function() {
-        var data = location.search;
-        var type = this.el.dataset.selectum;
-        if (data.length > 0) {
-            var reg = /(\w+)=([\w\.\|]+)/gi;
-            data = data.slice(1, data.length).split('&');
-            data = data.reduce(function(prev, curr){
-                var found = reg.exec(curr);
-                prev[found[1]] = found[2];
-                reg.lastIndex = null;
-                return prev;
-            }, {});
-            if (data.hasOwnProperty(type)) {
-                if (!this.options.picked) {
-                    this.DOMElements.currentFilter.classList.remove('js-raw');
+        if (this.options.urlFetch) {
+            var data = location.search;
+            var type = this.el.dataset.selectum;
+            if (data.length > 0) {
+                var reg = /(\w+)=([\w\.\|]+)/gi;
+                data = data.slice(1, data.length).split('&');
+                data = data.reduce(function(prev, curr){
+                    var found = reg.exec(curr);
+                    prev[found[1]] = found[2];
+                    reg.lastIndex = null;
+                    return prev;
+                }, {});
+                if (data.hasOwnProperty(type)) {
+                    if (!this.options.picked) {
+                        this.DOMElements.currentFilter.classList.remove('js-raw');
+                    }
+                    this.DOMElements.currentFilter.textContent = this.el.querySelector("[data-selectum-id='" + data[type] + "']").dataset.selectumVal;
+                    this._setSelected(data[type]);
+                    this._setActive();
+                    this._removeDisabled();
+                    this._showSubsets(data[type]);
+                    setTimeout(this._emitEvent.bind(this),0);
+                    callCallback(this, 'init:url');
                 }
-                this.DOMElements.currentFilter.textContent = this.el.querySelector("[data-selectum-id='" + data[type] + "']").dataset.selectumVal;
-                this._setSelected(data[type]);
-                this._setActive();
-                this._removeDisabled();
-                this._showSubsets(data[type]);
-                setTimeout(this._emitEvent.bind(this),0);
-                callCallback(this, 'init:url');
             }
         }
     };
