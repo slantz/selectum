@@ -18,8 +18,40 @@
 6. on/off callbacks
 7. location.search to selelct initial values
 
-> Settings:
-*
+##### Settings:
+- Attributes:
+  ```html
+  - [data-selectum]
+  - [data-selectum-clickable]
+  - [data-selectum-current]
+  - [data-selectum-reset]
+  - [data-selectum-list]
+  - [data-selectum-id]
+  - [data-selectum-val]
+  - [data-selectum-picker]
+  - [data-selectum-picked]
+  - [data-selectum-emit]
+  - [data-selectum-emit-reset]
+  - [data-selectum-listen]
+  - [data-selectum-listen-reset]
+  - [data-selectum-placeholder]
+  - [data-selectum-update-url]
+  - [data-selectum-url-fetch]
+  ```
+- JS:
+  ```javascript
+  new Selectum(el, {
+    picker: true,
+    picked: false,
+    emit: 'selectCode',
+    emitReset: 'resetAll',
+    listen: 'seelctNumber',
+    listenReset: 'resetCode',
+    defaultText: 'Set code',
+    updateUrl: true,
+    urlFetch: true
+  });
+  ```
 
 > IE10+
 
