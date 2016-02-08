@@ -21,6 +21,8 @@
     function Selectum( el, options ) {
         this.el = el;
         this.options = Selectum.extend( this.options, {
+            render: this.el.dataset.hasOwnProperty('selectumRender'),
+            exist: this.el.dataset.hasOwnProperty('selectumRenderExist'),
             picker: this.el.dataset.hasOwnProperty('selectumPicker'),
             picked: this.el.dataset.hasOwnProperty('selectumPicked'),
             emit: this.el.dataset.hasOwnProperty('selectumEmit') ? this.el.dataset.selectumEmit : false,
@@ -78,13 +80,14 @@
     };
 
     Selectum._showProperSubsets = function(param) {
-        var style = document.querySelector('#selectum-hiding-styles');
+        var uniqueId = "selectum-hiding-styles-" + this.el.dataset.selectum;
+        var style = document.querySelector('#' + uniqueId);
         if (!style) {
             style = document.createElement('style');
-            style.id = 'selectum-hiding-styles';
+            style.id = uniqueId;
             document.head.appendChild(style);
         }
-        style.innerHTML = "[data-selectum-list-hiddable]>[data-selectum-hidden-unless='" + param+ "']{display:block}";
+        style.innerHTML = "[data-selectum-list-hiddable='" + this.el.dataset.selectum + "']>[data-selectum-hidden-unless='" + param+ "']{display:block}";
     }
 
     Selectum.prototype._setDocumentExternalClose = function() {
@@ -118,6 +121,7 @@
         this._initEvents();
         this._setActive();
         this._disabledIfDependent();
+        this._addHiddenStyles();
         this._setDocumentExternalClose();
         this._setDefaultPlaceholder();
         this._setFromSearchParams();
@@ -130,6 +134,19 @@
     Selectum.prototype._disabledIfDependent = function() {
         if (this.options.picked) {
             this.el.classList.add('js-disabled');
+        }
+    };
+
+    Selectum.prototype._addHiddenStyles = function() {
+        if (this.options.picked) {
+            var uniqueId = "data-selectum-list-hiddable";
+            var style = document.querySelector('#' + uniqueId);
+            if (!style) {
+                style = document.createElement('style');
+                style.id = uniqueId;
+                document.head.appendChild(style);
+                style.innerHTML = "[data-selectum-list-hiddable]{display:none}";
+            }
         }
     };
 

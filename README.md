@@ -105,7 +105,7 @@
 3. doesn't have ```[data-selectum-clickable]```  so open event will be triggered on ```[data-selectum]``` element click, i.e. plugin.
 
 ```html
-<aside data-selectum="make" data-selectum-picker data-selectum-emit="countryPicked" data-selectum-placeholder="Pick Country">
+<aside data-selectum="country" data-selectum-picker data-selectum-emit="countryPicked" data-selectum-placeholder="Pick Country">
     <h3>Eurasia</h3>
     <div class="plgin__select">
         <span class="i-arrow-bottom_after js-raw" data-selectum-current></span>
@@ -119,27 +119,27 @@
     </div>
 </aside>
 
-<aside data-selectum="make" data-selectum-picked data-selectum-listen="countryPicked" data-selectum-placeholder="Pick City">
+<aside data-selectum="city" data-selectum-picked data-selectum-listen="countryPicked" data-selectum-placeholder="Pick City">
    <h3>Eurasia</h3>
    <section>
        <div class="i-arrow-bottom_after js-raw" data-selectum-current></div>
-       <div class="plugin__select__list" data-selectum-list>
+       <div class="plugin__select__list" data-selectum-list data-selectum-hiddable-list="country">
             <button data-selectum-reset>Any</button>
-            <ul data-czd-drpdwn-hidden-unless="UK">
-                <li data-czd-drpdwn-li data-czd-drpdwn-id="LND" data-czd-drpdwn-make="London">London</li>
-                <li data-czd-drpdwn-li data-czd-drpdwn-id="BKW" data-czd-drpdwn-make="Bakewell">Bakewell</li>
+            <ul data-selectum-hidden-unless="UK">
+                <li data-selectum-id="LND" data-selectum-val="London">London</li>
+                <li data-selectum-id="BKW" data-selectum-val="Bakewell">Bakewell</li>
             </ul>
-            <ul data-czd-drpdwn-hidden-unless="DE">
-                <li data-czd-drpdwn-li data-czd-drpdwn-id="BRL" data-czd-drpdwn-make="Berlin">Berlin</li>
-                <li data-czd-drpdwn-li data-czd-drpdwn-id="AAC" data-czd-drpdwn-make="Aachen">Aachen</li>
+            <ul data-selectum-hidden-unless="DE">
+                <li data-selectum-id="BRL" data-selectum-val="Berlin">Berlin</li>
+                <li data-selectum-id="AAC" data-selectum-val="Aachen">Aachen</li>
             </ul>
-            <ul data-czd-drpdwn-hidden-unless="FR">
-                <li data-czd-drpdwn-li data-czd-drpdwn-id="PRS" data-czd-drpdwn-make="Paris">Paris</li>
-                <li data-czd-drpdwn-li data-czd-drpdwn-id="MRC" data-czd-drpdwn-make="Marseille">Marseille</li>
+            <ul data-selectum-hidden-unless="FR">
+                <li data-selectum-id="PRS" data-selectum-val="Paris">Paris</li>
+                <li data-selectum-id="MRC" data-selectum-val="Marseille">Marseille</li>
             </ul>
-            <ul data-czd-drpdwn-hidden-unless="UA">
-              <li data-czd-drpdwn-li data-czd-drpdwn-id="ODS" data-czd-drpdwn-make="Odessa">Odessa</li>
-              <li data-czd-drpdwn-li data-czd-drpdwn-id="KIV" data-czd-drpdwn-make="Kiev">Kiev</li>
+            <ul data-selectum-hidden-unless="UA">
+              <li data-selectum-id="ODS" data-selectum-val="Odessa">Odessa</li>
+              <li data-selectum-id="KIV" data-selectum-val="Kiev">Kiev</li>
             </ul>
        </div>
    </section>
@@ -150,7 +150,7 @@
 > This plugin in despite of the previous one after reset button is clicked will set the dependent one to it's raw state, using ```js-raw``` class.
 
 ```html
-<aside data-selectum="make" data-selectum-picker data-selectum-emit="countryPicked" data-selectum-emit-reset="clearCities" data-selectum-placeholder="Pick Country">
+<aside data-selectum="country" data-selectum-picker data-selectum-emit="countryPicked" data-selectum-emit-reset="clearCities" data-selectum-placeholder="Pick Country">
     <h3>Eurasia</h3>
     <div class="plgin__select">
         <span class="i-arrow-bottom_after js-raw" data-selectum-current></span>
@@ -164,27 +164,27 @@
     </div>
 </aside>
 
-<aside data-selectum="make" data-selectum-picked data-selectum-listen="countryPicked" data-selectum-listen-reset="clearCities" data-selectum-placeholder="Pick City">
+<aside data-selectum="city" data-selectum-picked data-selectum-listen="countryPicked" data-selectum-listen-reset="clearCities" data-selectum-placeholder="Pick City">
    <h3>Eurasia</h3>
    <section>
        <div class="i-arrow-bottom_after js-raw" data-selectum-current></div>
-       <div class="plugin__select__list" data-selectum-list>
+       <div class="plugin__select__list" data-selectum-list data-selectum-hiddable-list="country">
             <button data-selectum-reset>Any</button>
-            <ul data-czd-drpdwn-hidden-unless="UK">
-                <li data-czd-drpdwn-li data-czd-drpdwn-id="LND" data-czd-drpdwn-make="London">London</li>
-                <li data-czd-drpdwn-li data-czd-drpdwn-id="BKW" data-czd-drpdwn-make="Bakewell">Bakewell</li>
+            <ul data-selectum-hidden-unless="UK">
+                <li data-selectum-id="LND" data-selectum-val="London">London</li>
+                <li data-selectum-id="BKW" data-selectum-val="Bakewell">Bakewell</li>
             </ul>
-            <ul data-czd-drpdwn-hidden-unless="DE">
-                <li data-czd-drpdwn-li data-czd-drpdwn-id="BRL" data-czd-drpdwn-make="Berlin">Berlin</li>
-                <li data-czd-drpdwn-li data-czd-drpdwn-id="AAC" data-czd-drpdwn-make="Aachen">Aachen</li>
+            <ul data-selectum-hidden-unless="DE">
+                <li data-selectum-id="BRL" data-selectum-val="Berlin">Berlin</li>
+                <li data-selectum-id="AAC" data-selectum-val="Aachen">Aachen</li>
             </ul>
-            <ul data-czd-drpdwn-hidden-unless="FR">
-                <li data-czd-drpdwn-li data-czd-drpdwn-id="PRS" data-czd-drpdwn-make="Paris">Paris</li>
-                <li data-czd-drpdwn-li data-czd-drpdwn-id="MRC" data-czd-drpdwn-make="Marseille">Marseille</li>
+            <ul data-selectum-hidden-unless="FR">
+                <li data-selectum-id="PRS" data-selectum-val="Paris">Paris</li>
+                <li data-selectum-id="MRC" data-selectum-val="Marseille">Marseille</li>
             </ul>
-            <ul data-czd-drpdwn-hidden-unless="UA">
-              <li data-czd-drpdwn-li data-czd-drpdwn-id="ODS" data-czd-drpdwn-make="Odessa">Odessa</li>
-              <li data-czd-drpdwn-li data-czd-drpdwn-id="KIV" data-czd-drpdwn-make="Kiev">Kiev</li>
+            <ul data-selectum-hidden-unless="UA">
+              <li data-selectum-id="ODS" data-selectum-val="Odessa">Odessa</li>
+              <li data-selectum-id="KIV" data-selectum-val="Kiev">Kiev</li>
             </ul>
        </div>
    </section>
