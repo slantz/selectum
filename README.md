@@ -123,7 +123,7 @@
    <h3>Eurasia</h3>
    <section>
        <div class="i-arrow-bottom_after js-raw" data-selectum-current></div>
-       <div class="plugin__select__list" data-selectum-list data-selectum-hiddable-list="country">
+       <div class="plugin__select__list" data-selectum-list data-selectum-list-hiddable="country">
             <button data-selectum-reset>Any</button>
             <ul data-selectum-hidden-unless="UK">
                 <li data-selectum-id="LND" data-selectum-val="London">London</li>
@@ -168,7 +168,7 @@
    <h3>Eurasia</h3>
    <section>
        <div class="i-arrow-bottom_after js-raw" data-selectum-current></div>
-       <div class="plugin__select__list" data-selectum-list data-selectum-hiddable-list="country">
+       <div class="plugin__select__list" data-selectum-list data-selectum-list-hiddable="country">
             <button data-selectum-reset>Any</button>
             <ul data-selectum-hidden-unless="UK">
                 <li data-selectum-id="LND" data-selectum-val="London">London</li>
