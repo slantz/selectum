@@ -245,3 +245,82 @@ window.setTimeout(function() {
     </div>
 </aside>
 ```
+
+### Select rendered by client with a default template:
+> This is the dependent select which depend on the fruit one, that can be set via ```[data-selectum-hiddable="fruit"]``` attribute or with js by passing ```listen: 'fruit'``` setting key.
+
+Custom array of objects or string of elements should be passed to select
+
+```javascript
+var select = null;
+
+ [].slice.call( document.querySelectorAll('[data-selectum]') ).forEach( function(el) {
+     select = new Selectum(el);
+ });
+
+window.setTimeout(function() {
+  select.render({
+    head: select.options.head || 'Any other head', // Optional
+    listen: 'fruit', // Optional, just for example, unnecessary here as it's duplicated via data-selectum-hiddable attribute
+    items: [
+    {
+        id : '0',
+        val : [
+            {id : 00, val : 'green'},
+            {id : 01, val : 'red'},
+            {id : 02, val : 'yellow'}
+       ]
+   },
+    {
+        id : '1',
+        val : [
+            {id : 10, val : 'fresh'},
+            {id : 11, val : 'rotten'},
+            {id : 12, val : 'green'}
+       ]
+   },
+   {
+       id : '2',
+       val : [
+           {id : 20, val : 'sweet'},
+           {id : 21, val : 'sour'},
+           {id : 22, val : 'mild'}
+      ]
+  }
+   ]
+  })
+}, Math.random() * 2000 + 1000);
+```
+
+```html
+<aside data-selectum="fruit" data-selectum-head="Fruit Type" data-selectum-picked data-selectum-listen="fruit:chosen" data-selectum-listen-reset="sell:fruits" data-selectum-placeholder="Get your Fruit" data-selectum-head="Buy a Fruit" data-selectum-render data-selectum-hiddable="fruit"></aside>
+```
+
+> This will be rendered into
+
+```html
+<aside data-selectum="fruit" data-selectum-head="Fruit Type" data-selectum-picked="" data-selectum-listen="fruit:chosen" data-selectum-listen-reset="sell:fruits" data-selectum-placeholder="Get your Fruit" data-selectum-render="" data-selectum-hiddable="fruit" class="js-disabled">
+    <h3 class="selectum__head">Fruit Type</h3>
+    <section>
+        <div class="selectum__select__current i-arrow-bottom_after js-raw" data-selectum-current="">Get your Fruit</div>
+        <div class="selectum__select__list" data-selectum-list="" data-selectum-list-hiddable="fruit">
+            <button data-selectum-reset="">Any</button>
+            <ul data-selectum-hidden-unless="0">
+                <li data-selectum-id="0" data-selectum-val="green">green</li>
+                <li data-selectum-id="1" data-selectum-val="red">red</li>
+                <li data-selectum-id="2" data-selectum-val="yellow">yellow</li>
+            </ul>
+            <ul data-selectum-hidden-unless="1">
+                <li data-selectum-id="10" data-selectum-val="fresh">fresh</li>
+                <li data-selectum-id="11" data-selectum-val="rotten">rotten</li>
+                <li data-selectum-id="12" data-selectum-val="green">green</li>
+            </ul>
+            <ul data-selectum-hidden-unless="2">
+                <li data-selectum-id="20" data-selectum-val="sweet">sweet</li>
+                <li data-selectum-id="21" data-selectum-val="sour">sour</li>
+                <li data-selectum-id="22" data-selectum-val="mild">mild</li>
+            </ul>
+        </div>
+    </section>
+</aside>
+```

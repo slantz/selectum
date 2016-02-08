@@ -99,7 +99,7 @@
         this.options = Selectum.extend( this.options, {
             render: this.el.dataset.hasOwnProperty('selectumRender'),
             exist: this.el.dataset.hasOwnProperty('selectumRenderExist'),
-            head: this.el.dataset.hasOwnProperty('selectumHead'),
+            head: this.el.dataset.hasOwnProperty('selectumHead') ? this.el.dataset.selectumHead : '',
             picker: this.el.dataset.hasOwnProperty('selectumPicker'),
             picked: this.el.dataset.hasOwnProperty('selectumPicked'),
             emit: this.el.dataset.hasOwnProperty('selectumEmit') ? this.el.dataset.selectumEmit : false,
