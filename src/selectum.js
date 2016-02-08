@@ -18,15 +18,93 @@
         }
     };
 
+    function getDefaultTemplate(type) {
+        switch (type) {
+            case 'simple':
+                return '<h6 class="selectum__head"><%=head%></h6>\
+                        <div class="selectum__select">\
+                            <span class="selectum__select__current i-arrow-bottom_after js-raw" data-selectum-current></span>\
+                            <ul class="selectum__select__list" data-selectum-list>\
+                                <li data-selectum-reset>Any</li>\
+                            <% for ( var i = 0; i < items.length; i++ ) { %>\
+                                <li data-selectum-id="<%=items[i].id%>" data-selectum-val="<%=items[i].val%>"><%=items[i].val%></li>\
+                            <% } %>\
+                            </ul>\
+                        </div>';
+            case 'picker':
+                return '<h3 class="selectum__head"><%=head%></h3>\
+                        <div class="selectum__select">\
+                            <span class="selectum__select__current i-arrow-bottom_after js-raw" data-selectum-current></span>\
+                            <ul class="selectum__select__list" data-selectum-list>\
+                                <li data-selectum-reset>Any</li>\
+                            <% for ( var i = 0; i < items.length; i++ ) { %>\
+                                <li data-selectum-id="<%=items[i].id%>" data-selectum-val="<%=items[i].val%>"><%=items[i].val%></li>\
+                            <% } %>\
+                            </ul>\
+                        </div>';
+            case 'picked':
+                return '<h3 class="selectum__head"><%=head%></h3>\
+                        <section>\
+                            <div class="selectum__select__current i-arrow-bottom_after js-raw" data-selectum-current></div>\
+                            <div class="selectum__select__list" data-selectum-list data-selectum-list-hiddable="<%=listen%>">\
+                                <button data-selectum-reset>Any</button>\
+                            <% for ( var i = 0; i < items.length; i++ ) { %>\
+                                <ul data-selectum-hidden-unless="<%=items[i].id%>">\
+                                <% for ( var j = 0; j < items[i].val.length; j++ ) { %>\
+                                    <li data-selectum-id="<%=items[i].val[j].id%>" data-selectum-val="<%=items[i].val[j].val%>"><%=items[i].val[j].val%></li>\
+                                <% } %>\
+                                </ul>\
+                            <% } %>\
+                            </div>\
+                        </section>';
+        };
+    };
+
+    (function(){
+        var cache = {};
+
+        this.tmpl = function tmpl(str, data){
+            // Figure out if we're getting a template, or if we need to
+            // load the template - and be sure to cache the result.
+            var fn = !/\W/.test(str) ?
+                cache[str] = cache[str] ||
+                    tmpl(getDefaultTemplate(str)) :
+
+                // Generate a reusable function that will serve as a template
+                // generator (and which will be cached).
+                new Function("obj",
+                    "var p=[],print=function(){p.push.apply(p,arguments);};" +
+
+                        // Introduce the data as local variables using with(){}
+                    "with(obj){p.push('" +
+
+                        // Convert the template into pure JavaScript
+                    str
+                        .replace(/[\r\t\n]/g, " ")
+                        .split("<%").join("\t")
+                        .replace(/((^|%>)[^\t]*)'/g, "$1\r")
+                        .replace(/\t=(.*?)%>/g, "',$1,'")
+                        .split("\t").join("');")
+                        .split("%>").join("p.push('")
+                        .split("\r").join("\\'")
+                    + "');}return p.join('');");
+
+            // Provide some basic currying to the user
+            return data ? fn( data ) : fn;
+        };
+    }.bind(Selectum))();
+
     function Selectum( el, options ) {
         this.el = el;
         this.options = Selectum.extend( this.options, {
             render: this.el.dataset.hasOwnProperty('selectumRender'),
             exist: this.el.dataset.hasOwnProperty('selectumRenderExist'),
+            head: this.el.dataset.hasOwnProperty('selectumHead'),
             picker: this.el.dataset.hasOwnProperty('selectumPicker'),
             picked: this.el.dataset.hasOwnProperty('selectumPicked'),
             emit: this.el.dataset.hasOwnProperty('selectumEmit') ? this.el.dataset.selectumEmit : false,
             emitReset: this.el.dataset.hasOwnProperty('selectumEmitReset') ? this.el.dataset.selectumEmitReset : false,
+            hiddable: this.el.dataset.hasOwnProperty('selectumHiddable') ? this.el.dataset.selectumHiddable : '',
             listen: this.el.dataset.hasOwnProperty('selectumListen') ? this.el.dataset.selectumListen : false,
             listenReset: this.el.dataset.hasOwnProperty('selectumListenReset') ? this.el.dataset.selectumListenReset : false,
             defaultText: this.el.dataset.hasOwnProperty('selectumPlaceholder') ? this.el.dataset.selectumPlaceholder : '',
@@ -104,6 +182,8 @@
 
     Selectum.prototype.options = {
         selected: null,
+        render: false,
+        exist: false,
         picker: false,
         picked: false,
         emit: false,
@@ -113,18 +193,61 @@
         defaultText: '',
         updateUrl: false,
         urlFetch: false,
+        head: 'Select an Item',
+        hiddable: '',
         callbacks: {}
     };
 
-    Selectum.prototype._init = function(){
-        this._setDOMElements();
-        this._initEvents();
-        this._setActive();
-        this._disabledIfDependent();
-        this._addHiddenStyles();
-        this._setDocumentExternalClose();
-        this._setDefaultPlaceholder();
-        this._setFromSearchParams();
+    Selectum.prototype._init = function(triggered){
+        if (!this.options.render || triggered) {
+            this._setDOMElements();
+            this._initEvents();
+            this._setActive();
+            this._disabledIfDependent();
+            this._addHiddenStyles();
+            this._setDocumentExternalClose();
+            this._setDefaultPlaceholder();
+            this._setFromSearchParams();
+        }
+    };
+
+    Selectum.prototype.render = function(data) {
+        if (data !== null && typeof data === 'object') {
+            if (typeof data.head === 'undefined') {
+                data.head = this.options.head || 'Select';
+            }
+            if (this.options.picked) {
+                if (typeof data.listen === 'undefined') {
+                    data.listen = this.options.hiddable || 'selectum';
+                }
+            }
+            if (typeof data.items === 'undefined') {
+                console.error('items key should be present');
+            } else {
+                if (!Array.isArray(data.items)) {
+                    console.error('items should be an array');
+                } else {
+                    if (data.items.length === 0) {
+                        console.error('items should becontain at least one object with key: id, val');
+                    } else {
+                        var type = '';
+                        if (!this.options.picked) {
+                            if (this.options.picker) {
+                                type = 'picker';
+                            } else {
+                                type = 'simple';
+                            }
+                        } else {
+                            type = 'picked';
+                        }
+                        this.el.innerHTML = Selectum.tmpl(type, data);
+                        this._init(true);
+                    }
+                }
+            }
+        } else {
+            console.error('Please provide data Object to render');
+        }
     };
 
     Selectum.prototype._setDefaultPlaceholder = function() {
@@ -212,7 +335,7 @@
                 _this._setActive();
                 _this._emitResetEvent();
                 Selectum.urlUpdater(_this.el.dataset.selectum, '');
-                callCallback(this, 'reset');
+                callCallback(_this, 'reset');
             });
         }
     };
@@ -293,7 +416,7 @@
                 _this._showSubsets(e.target.dataset.selectumId);
                 _this._updateUrl();
                 _this._emitEvent();
-                callCallback(this, 'click');
+                callCallback(_this, 'click');
             });
         });
     };
@@ -312,7 +435,7 @@
 
     Selectum.prototype._showSubsets = function(param) {
         if (this.options.picker) {
-            Selectum._showProperSubsets(param);
+            Selectum._showProperSubsets.bind(this, param)();
         }
     };
 

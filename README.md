@@ -5,6 +5,8 @@
 
 > Custom native HTML5 select, using data attributes and vanilla JS events which can update url search params via history API and show subsets of other custom selects. Can have reset button to pick any value or reset dependent selects. Has an ability to set default palceholder text. Click can be handled via plugin or set with special data attribute.
 
+> Great for Server or Client side rendering!!!
+
 > This is fully jQuery or other libraries independent plugin, can be fully configured with ```[data-attributes]``` or via JS constructor function.
 
 > One of the main advantages of this plugin is that it doesn't render any precompiled layout, you can attach this plugin to any HTML structure and configure it via data attributes or proper css classes. It acts as a separate module or web component.
@@ -21,6 +23,10 @@
 ##### Settings:
 - Attributes:
   - [data-selectum]
+  - [data-selectum-render]
+  - [data-selectum-exist]
+  - [data-selectum-head]
+  - [data-selectum-hiddable]
   - [data-selectum-clickable]
   - [data-selectum-current]
   - [data-selectum-reset]
@@ -41,13 +47,17 @@
   new Selectum(el, {
     picker: true,
     picked: false,
+    render: false,
+    exist: false,
+    title: 'Vegetables Selector',
     emit: 'selectCode',
     emitReset: 'resetAll',
     listen: 'seelctNumber',
     listenReset: 'resetCode',
     defaultText: 'Set code',
     updateUrl: true,
-    urlFetch: true
+    urlFetch: true,
+    hiddable: 'fruit'
   });
 ```
 
@@ -61,10 +71,10 @@
 ```html
 <div data-selectum="color" data-selectum-placeholder="Pick a color">
     <div class="plugin">
-        <h6 class="plugin__head">Color Picker</h6>
-        <div class="plgin__select">
-            <span class="plugin__select__current i-arrow-bottom_after js-raw" data-selectum-clickable data-selectum-current></span>
-            <ul class="plugin__select__list" data-selectum-list>
+        <h6 class="selectum__head">Color Picker</h6>
+        <div class="selectum__select">
+            <span class="selectum__select__current i-arrow-bottom_after js-raw" data-selectum-clickable data-selectum-current></span>
+            <ul class="selectum__select__list" data-selectum-list>
                 <li data-selectum-reset>Any</li>
                 <li data-selectum-id="r" data-selectum-val="red">red</li>
                 <li data-selectum-id="y" data-selectum-val="yellow">yellow</li>
@@ -82,9 +92,9 @@
 ```html
 <div data-selectum="lang" data-selectum-placeholder="Set language" data-selectum-update-url data-selectum-url-fetch>
     <div class="plugin">
-        <div class="plgin__select">
-            <span class="plugin__select__current i-arrow-bottom_after js-raw" data-selectum-clickable data-selectum-current></span>
-            <ul class="plugin__select__list" data-selectum-list>
+        <div class="selectum__select">
+            <span class="selectum__select__current i-arrow-bottom_after js-raw" data-selectum-clickable data-selectum-current></span>
+            <ul class="selectum__select__list" data-selectum-list>
                 <li data-selectum-reset>Default (EN)</li>
                 <li data-selectum-id="en" data-selectum-val="English">English</li>
                 <li data-selectum-id="de" data-selectum-val="Deutsch">Deutsch</li>
@@ -107,9 +117,9 @@
 ```html
 <aside data-selectum="country" data-selectum-picker data-selectum-emit="countryPicked" data-selectum-placeholder="Pick Country">
     <h3>Eurasia</h3>
-    <div class="plgin__select">
+    <div class="selectum__select">
         <span class="i-arrow-bottom_after js-raw" data-selectum-current></span>
-        <ul class="plugin__select__list" data-selectum-list>
+        <ul class="selectum__select__list" data-selectum-list>
             <li data-selectum-reset>Any</li>
             <li data-selectum-id="UK" data-selectum-val="United Kingdom">United Kingdom</li>
             <li data-selectum-id="DE" data-selectum-val="Germany">Germany</li>
@@ -123,7 +133,7 @@
    <h3>Eurasia</h3>
    <section>
        <div class="i-arrow-bottom_after js-raw" data-selectum-current></div>
-       <div class="plugin__select__list" data-selectum-list data-selectum-list-hiddable="country">
+       <div class="selectum__select__list" data-selectum-list data-selectum-list-hiddable="country">
             <button data-selectum-reset>Any</button>
             <ul data-selectum-hidden-unless="UK">
                 <li data-selectum-id="LND" data-selectum-val="London">London</li>
@@ -152,9 +162,9 @@
 ```html
 <aside data-selectum="country" data-selectum-picker data-selectum-emit="countryPicked" data-selectum-emit-reset="clearCities" data-selectum-placeholder="Pick Country">
     <h3>Eurasia</h3>
-    <div class="plgin__select">
+    <div class="selectum__select">
         <span class="i-arrow-bottom_after js-raw" data-selectum-current></span>
-        <ul class="plugin__select__list" data-selectum-list>
+        <ul class="selectum__select__list" data-selectum-list>
             <li data-selectum-reset>Any</li>
             <li data-selectum-id="UK" data-selectum-val="United Kingdom">United Kingdom</li>
             <li data-selectum-id="DE" data-selectum-val="Germany">Germany</li>
@@ -168,7 +178,7 @@
    <h3>Eurasia</h3>
    <section>
        <div class="i-arrow-bottom_after js-raw" data-selectum-current></div>
-       <div class="plugin__select__list" data-selectum-list data-selectum-list-hiddable="country">
+       <div class="selectum__select__list" data-selectum-list data-selectum-list-hiddable="country">
             <button data-selectum-reset>Any</button>
             <ul data-selectum-hidden-unless="UK">
                 <li data-selectum-id="LND" data-selectum-val="London">London</li>
@@ -188,5 +198,50 @@
             </ul>
        </div>
    </section>
+</aside>
+```
+
+### Select rendered by client with a default template:
+> This select can be rendered dynamically by client side and configured either by attribtes or js means.
+
+Custom array of objects or string of elements should be passed to select
+
+```javascript
+var select = null;
+
+ [].slice.call( document.querySelectorAll('[data-selectum]') ).forEach( function(el) {
+     select = new Selectum(el);
+ });
+
+window.setTimeout(function() {
+  select.render({
+    head: select.options.head || 'Any other head', // Optional
+    items: [
+       {id : 0, val : 'apple'},
+       {id : 1, val : 'banana'},
+       {id : 2, val : 'tangerin'}
+    ]
+  })
+}, Math.random() * 2000 + 1000);
+```
+
+```html
+<aside data-selectum="fruit" data-selectum-picker data-selectum-emit="fruit:chosen" data-selectum-emit-reset="sell:fruits" data-selectum-placeholder="Get your Fruit" data-selectum-head="Buy a Fruit" data-selectum-render></aside>
+```
+
+> This will be rendered into
+
+```html
+<aside data-selectum="country" data-selectum-picker data-selectum-emit="fruit:chosen" data-selectum-emit-reset="sell:fruits" data-selectum-placeholder="Get your Fruit" data-selectum-head="Buy a Fruit" data-selectum-render></aside>
+    <h3 class="selectum__head">Buy a Fruit</h3>
+    <div class="selectum__select">
+        <span class="selectum__select__current i-arrow-bottom_after js-raw" data-selectum-current>Get your Fruit</span>
+        <ul class="selectum__select__list" data-selectum-list>
+            <li data-selectum-reset>Any</li>
+            <li data-selectum-id="0" data-selectum-val="apple">apple</li>
+            <li data-selectum-id="1" data-selectum-val="banana">banana</li>
+            <li data-selectum-id="2" data-selectum-val="tangerin">tangerin</li>
+        </ul>
+    </div>
 </aside>
 ```

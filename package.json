@@ -1,6 +1,6 @@
 {
   "name": "selectum",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "VanillaJS custom HTML5 dropdown select, which uses data attributes for configuration, native JS events to control dependened selects, updates URL via History API and can select value on initiation from URL search params, adds CSS selector to vastly show other selects subsets.",
   "main": "dist/selectum.min.js",
   "scripts": {},
@@ -39,7 +39,13 @@
     "module",
     "closest",
     "url params",
-    "options"
+    "options",
+    "serverside",
+    "server side",
+    "clientside",
+    "client side",
+    "rendering",
+    "render"
   ],
   "dependencies": {},
   "ignore": [
