@@ -1,6 +1,7 @@
 {
   "name": "selectum",
-  "version": "1.1.0",
+  "version": "1.2.0",
+  "homepage": "https://slantz.github.io/selectum/",
   "main": "dist/selectum.min.js",
   "ignore": [
     "src",

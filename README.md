@@ -63,7 +63,7 @@
 
 > IE10+
 
-[Demo](http://slantz.github.io/selectum/)
+[Demo](https://slantz.github.io/selectum/)
 
 ### Simple HTML5 Dropdown:
 > This is single select which updates history pushState, configured via data-attributes and has no dependent selects.
@@ -322,5 +322,74 @@ window.setTimeout(function() {
             </ul>
         </div>
     </section>
+</aside>
+```
+
+### Select rendered by client with a custom template:
+> This select can be rendered dynamically by client side and configured either by attribtes or js means.
+
+Custom array of objects or string of elements should be passed to select
+
+```javascript
+var select = null;
+    [].slice.call( document.querySelectorAll('[data-selectum]') ).forEach( function(el) {
+        select = new Selectum(el);
+    });
+
+window.setTimeout(function() {
+  select.render({
+    items: [
+       {id : 0, val : 'apple'},
+       {id : 1, val : 'banana'},
+       {id : 2, val : 'tangerin'}
+    ]
+  })
+}, 3000);
+
+window.setTimeout(function() {
+  select.render({
+    head: 'Totally changed head',
+    items: [
+       {id : 0, val : 'some'},
+       {id : 1, val : 'other'},
+       {id : 2, val : 'array'}
+       {id : 3, val : 'maybe'}
+       {id : 4, val : 'enormous'}
+    ]
+  })
+}, 7000);
+```
+
+```html
+<aside data-selectum="fruit" data-selectum-head="Fruit Type" data-selectum-picker data-selectum-emit="fruit:chosen" data-selectum-emit-reset="sell:fruits" data-selectum-placeholder="Get your Fruit" data-selectum-head="Buy a Fruit" data-selectum-render data-selectum-exist>
+    <h3><%=head%></h3>
+    <div class="selectum__select">
+        <span class="i-arrow-bottom_after js-raw" data-selectum-current></span>
+        <ul class="selectum__select__list" data-selectum-list>
+            <li data-selectum-reset>Any</li>
+          <% for ( var i = 0; i < items.length; i++ ) { %>
+            <li data-selectum-id="<%=items[i].id%>" data-selectum-val="<%=items[i].val%>"><%=items[i].val%></li>
+          <% } %>
+        </ul>
+    </div>
+</aside>
+```
+
+> This will be rendered into
+
+```html
+<aside data-selectum="fruit" data-selectum-head="Fruit Type" data-selectum-picker data-selectum-emit="fruit:chosen" data-selectum-emit-reset="sell:fruits" data-selectum-placeholder="Get your Fruit" data-selectum-head="Buy a Fruit" data-selectum-render data-selectum-exist>
+    <h3 class="selectum__head">Totally changd head</h3>
+    <div class="selectum__select">
+        <span class="selectum__select__current i-arrow-bottom_after js-raw" data-selectum-current>Get your Fruit</span>
+        <ul class="selectum__select__list" data-selectum-list>
+            <li data-selectum-reset>Any</li>
+            <li data-selectum-id="0" data-selectum-val="some">some</li>
+            <li data-selectum-id="1" data-selectum-val="other">other</li>
+            <li data-selectum-id="2" data-selectum-val="array">array</li>
+            <li data-selectum-id="3" data-selectum-val="maybe">maybe</li>
+            <li data-selectum-id="4" data-selectum-val="enormous">enormous</li>
+        </ul>
+    </div>
 </aside>
 ```

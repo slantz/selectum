@@ -18,6 +18,8 @@
         }
     };
 
+    var templateCache = {};
+
     function getDefaultTemplate(type) {
         switch (type) {
             case 'simple':
@@ -63,12 +65,12 @@
     (function(){
         var cache = {};
 
-        this.tmpl = function tmpl(str, data){
+        this.tmpl = function tmpl(str, data, custom){
             // Figure out if we're getting a template, or if we need to
             // load the template - and be sure to cache the result.
             var fn = !/\W/.test(str) ?
                 cache[str] = cache[str] ||
-                    tmpl(getDefaultTemplate(str)) :
+                    tmpl(custom ? str : getDefaultTemplate(str)) :
 
                 // Generate a reusable function that will serve as a template
                 // generator (and which will be cached).
@@ -98,7 +100,7 @@
         this.el = el;
         this.options = Selectum.extend( this.options, {
             render: this.el.dataset.hasOwnProperty('selectumRender'),
-            exist: this.el.dataset.hasOwnProperty('selectumRenderExist'),
+            exist: this.el.dataset.hasOwnProperty('selectumExist'),
             head: this.el.dataset.hasOwnProperty('selectumHead') ? this.el.dataset.selectumHead : '',
             picker: this.el.dataset.hasOwnProperty('selectumPicker'),
             picked: this.el.dataset.hasOwnProperty('selectumPicked'),
@@ -181,6 +183,7 @@
     };
 
     Selectum.prototype.options = {
+        inited: false,
         selected: null,
         render: false,
         exist: false,
@@ -208,10 +211,14 @@
             this._setDocumentExternalClose();
             this._setDefaultPlaceholder();
             this._setFromSearchParams();
+            this.options.inited = true;
         }
     };
 
     Selectum.prototype.render = function(data) {
+        if (this.options.inited) {
+            this.el.innerHTML = '';
+        }
         if (data !== null && typeof data === 'object') {
             if (typeof data.head === 'undefined') {
                 data.head = this.options.head || 'Select';
@@ -240,7 +247,14 @@
                         } else {
                             type = 'picked';
                         }
-                        this.el.innerHTML = Selectum.tmpl(type, data);
+                        if (this.options.exist) {
+                            if (!templateCache.hasOwnProperty(this.el.dataset.selectum)) {
+                                templateCache[this.el.dataset.selectum] = this.el.innerHTML.replace(/&lt;/gi, '<').replace(/&gt;/gi, '>');
+                            }
+                            this.el.innerHTML = Selectum.tmpl(templateCache[this.el.dataset.selectum], data, true);
+                        } else {
+                            this.el.innerHTML = Selectum.tmpl(type, data);
+                        }
                         this._init(true);
                     }
                 }
@@ -498,9 +512,29 @@
     window.Selectum = Selectum;
 
 })(window);
+var select = null;
+[].slice.call( document.querySelectorAll('[data-selectum]') ).forEach( function(el) {
+    select = new Selectum(el);
+});
 
-//document.addEventListener('DOMContentLoaded', function(){
-//    [].slice.call( document.querySelectorAll('[data-selectum]') ).forEach( function(el) {
-//        new Selectum(el);
-//    });
-//});
+window.setTimeout(function() {
+    select.render({
+        head: select.options.head || 'Any other head', // Optional
+        items: [
+            {id : 0, val : 'apple'},
+            {id : 1, val : 'banana'},
+            {id : 2, val : 'tangerin'}
+        ]
+    })
+}, 3000);
+
+window.setTimeout(function() {
+    select.render({
+        head: select.options.head || 'Any other head', // Optional
+        items: [
+            {id : 0, val : 'some'},
+            {id : 1, val : 'other'},
+            {id : 2, val : 'array'}
+        ]
+    })
+}, 7000);
