@@ -98,7 +98,24 @@
 
     function Selectum( el, options ) {
         this.el = el;
-        this.options = Selectum.extend( this.options, {
+        this.options = Selectum.extend({
+            inited: false,
+            selected: null,
+            render: false,
+            exist: false,
+            picker: false,
+            picked: false,
+            emit: false,
+            emitReset: false,
+            listen: false,
+            listenReset: false,
+            defaultText: '',
+            updateUrl: false,
+            urlFetch: false,
+            head: 'Select an Item',
+            hiddable: '',
+            callbacks: {}
+        }, {
             render: this.el.dataset.hasOwnProperty('selectumRender'),
             exist: this.el.dataset.hasOwnProperty('selectumExist'),
             head: this.el.dataset.hasOwnProperty('selectumHead') ? this.el.dataset.selectumHead : '',
@@ -180,25 +197,6 @@
                 }
             }
         });
-    };
-
-    Selectum.prototype.options = {
-        inited: false,
-        selected: null,
-        render: false,
-        exist: false,
-        picker: false,
-        picked: false,
-        emit: false,
-        emitReset: false,
-        listen: false,
-        listenReset: false,
-        defaultText: '',
-        updateUrl: false,
-        urlFetch: false,
-        head: 'Select an Item',
-        hiddable: '',
-        callbacks: {}
     };
 
     Selectum.prototype._init = function(triggered){
