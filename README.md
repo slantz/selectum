@@ -107,7 +107,7 @@
 </div>
 ```
 
-### Main Selct and Dependent one:
+### Main Select and Dependent one:
 > This is single select which updates history pushState, configured via data-attributes and has no dependent selects.
 
 ##### Differences:
@@ -157,7 +157,7 @@
 </aside>
 ```
 
-### Main Selct and Dependent one reset:
+### Main Select and Dependent one reset:
 > This plugin in despite of the previous one after reset button is clicked will set the dependent one to it's raw state, using ```js-raw``` class.
 
 ```html
