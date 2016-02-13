@@ -280,7 +280,7 @@
                 style = document.createElement('style');
                 style.id = uniqueId;
                 document.head.appendChild(style);
-                style.innerHTML = "[data-selectum-list-hiddable]{display:none}";
+                style.innerHTML = "[data-selectum-list-hiddable]>[data-selectum-hidden-unless]{display:none}";
             }
         }
     };
