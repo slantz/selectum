@@ -1,0 +1,173 @@
+
+
+[class*="i-titillium"] {
+    font-family: 'Titillium Web', sans-serif;
+}
+.i-titillium_n {
+    font-weight: 400;
+}
+
+.i-titillium_sb {
+    font-weight: 600;
+}
+
+.i-titillium_b {
+    font-weight: 700;
+}
+
+.i-text-center {
+    text-align: center;
+}
+
+.i-inline-block {
+    display: inline-block;
+}
+
+body {
+    background-color: #e9e9e9;
+}
+
+header {
+    background-color: #cfcfcf;
+}
+
+main,
+article {
+    position : relative;
+}
+
+main {
+    z-index: 0;
+}
+
+article:nth-last-of-type(1) {
+    z-index: 1;
+}
+
+article:nth-last-of-type(2) {
+    z-index: 2;
+}
+
+article:nth-last-of-type(3) {
+    z-index: 3;
+}
+
+article:nth-last-of-type(4) {
+    z-index: 4;
+}
+
+article:nth-last-of-type(5) {
+    z-index: 5;
+}
+
+article:nth-last-of-type(6) {
+    z-index: 6;
+}
+
+article:nth-last-of-type(7) {
+    z-index: 7;
+}
+
+article:nth-last-of-type(8) {
+    z-index: 8;
+}
+
+[data-selectum] {
+    position: relative;
+    z-index: 1;
+    width : calc(300rem / 16);
+    margin: 0 auto;
+    background-color: #fff;
+}
+
+.selectum__select__list {
+    top: 0;
+    margin: 0;
+    min-width: 140px;
+    padding: 7px;
+    text-align: left;
+    opacity: 1;
+}
+
+.selectum__select__list.selectum__select__list_uncover {
+    top: 100%;
+}
+
+.p-dropdown-select_t0 .selectum__select__list li {
+    padding: 7px;
+}
+.selectum__select__list {
+    position: absolute;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    display: none;
+}
+
+@media screen and (max-width: 50em) {
+    .selectum__select__list {
+        position: relative;
+    }
+}
+
+.selectum__select__list li {
+    list-style: none;
+    cursor: pointer;
+}
+
+.selectum__select__list li:hover,
+.selectum__select__list li.js-current {
+    color: #fff;
+    background-color: #ddd;
+}
+
+.selectum__select__list.js-open {
+    display: block;
+    box-shadow: 0px 0 12px -1px rgba(0, 0, 0, 0.8);
+}
+
+.selectum__select__current {
+    position: relative;
+    display: block;
+}
+
+.selectum__select__current:after {
+    position: absolute;
+    display: block;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    top: calc(50% - 10px);
+    background-size: cover;
+}
+.selectum__select__current.js-raw {
+    font-style: italic;
+    color: #ccc;
+}
+
+[data-selectum].js-open:not(.js-no-styles) {
+    box-shadow: 0 0 12px -1px rgba(0, 0, 0, 0.8);
+}
+
+[data-selectum].js-open:not(.js-no-styles) .selectum__select__current {
+    z-index: 1;
+    background-color: #fff;
+}
+
+[data-selectum]:not(.js-disabled) .selectum__select__current:hover {
+    cursor: pointer;
+}
+
+[data-selectum-prefix] {
+    display: inline-block;
+}
+
+[data-selectum-prefix]:before {
+    content: attr(data-selectum-prefix);
+}
+
+[data-selectum-reset] {
+    border-bottom: 1px solid #4d4d4d;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}

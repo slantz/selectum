@@ -1,0 +1,273 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Demo page for selectum JS lugin. VanillaJS custom HTML5 dropdown select, which uses data attributes for configuration, native JS events to control dependened selects, updates URL via History API and can select value on initiation from URL search params, adds CSS selector to vastly show other selects subsets.">
+    <meta name="keywords" content="selectum, plugin, HTML5, select, dropdown, custom, native, vanillaJS, data, attributes, history, history API, classlist API, pushState, url, query, javascript event, style filter, dependent, picker, picked, toggel, emit, listen, reset, disable, on, off, constructor, module, closest, url params, options, serverside, server side, clientside, client side, rendering, render">
+    <title>Selectum JS Demo Page</title>
+    <link rel="stylesheet" href="css/foundation.min.css" />
+    <link rel="stylesheet" href="css/app.css" />
+    <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,700,400italic,700italic,600italic,600' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <header role="banner">
+      <div class="row align-center">
+        <div class="small-12 columns">
+          <h1 role="heading" class="i-titillium_sb i-text-center">Selectum JS Custom Dropdown Plugin</h1>
+        </div>
+      </div>
+    </header>
+    <main role="main">
+      <section>
+        <article class="row align-spaced medium-uncollapse">
+          <h4 class="small-12 columns i-titillium_sb">Simple HTML5 Dropdown</h4>
+          <div class="small-12 medium-6 columns">
+            <div data-selectum="color" data-selectum-placeholder="Pick a color">
+              <div class="selectum">
+                <h6 class="selectum__head">Color Picker</h6>
+                <div class="selectum__select">
+                  <span class="selectum__select__current i-arrow-bottom_after js-raw" data-selectum-clickable data-selectum-current></span>
+                  <ul class="selectum__select__list selectum__select__list_uncover" data-selectum-list>
+                    <li data-selectum-reset>Any</li>
+                    <li data-selectum-id="r" data-selectum-val="red">red</li>
+                    <li data-selectum-id="y" data-selectum-val="yellow">yellow</li>
+                    <li data-selectum-id="g" data-selectum-val="green">green</li>
+                    <li data-selectum-id="b" data-selectum-val="blue">blue</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+        <hr>
+        <article class="row align-spaced medium-uncollapse">
+          <h4 class="small-12 columns i-titillium_sb">Url updating select</h4>
+          <div class="small-12 medium-6 columns">
+            <div class="js-no-styles" data-selectum="lang" data-selectum-placeholder="Set language" data-selectum-update-url data-selectum-url-fetch>
+              <div class="selectum">
+                <div class="selectum__select">
+                  <span class="selectum__select__current i-arrow-bottom_after js-raw" data-selectum-clickable data-selectum-current></span>
+                  <ul class="selectum__select__list" data-selectum-list>
+                    <li data-selectum-reset>Default (EN)</li>
+                    <li data-selectum-id="en" data-selectum-val="English">English</li>
+                    <li data-selectum-id="de" data-selectum-val="Deutsch">Deutsch</li>
+                    <li data-selectum-id="fr" data-selectum-val="Francaise">Francaise</li>
+                    <li data-selectum-id="ru" data-selectum-val="Русский">Русский</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+        <hr>
+        <article class="row align-spaced medium-uncollapse">
+          <h4 class="small-12 columns i-titillium_sb">Main Select and Dependent one</h4>
+          <div class="small-12 medium-6 columns">
+            <aside class="js-no-styles" data-selectum="country" data-selectum-picker data-selectum-emit="countryPicked" data-selectum-placeholder="Pick Country">
+              <h3 class="i-titillium_n">Eurasia</h3>
+              <div class="selectum__select">
+                <span class="i-arrow-bottom_after js-raw" data-selectum-current></span>
+                <ul class="selectum__select__list" data-selectum-list>
+                  <li data-selectum-reset>Any</li>
+                  <li data-selectum-id="UK" data-selectum-val="United Kingdom">United Kingdom</li>
+                  <li data-selectum-id="DE" data-selectum-val="Germany">Germany</li>
+                  <li data-selectum-id="FR" data-selectum-val="France">France</li>
+                  <li data-selectum-id="UA" data-selectum-val="Ukraine">Ukraine</li>
+                </ul>
+              </div>
+            </aside>
+          </div>
+          <div class="small-12 medium-6 columns">
+            <aside class="js-no-styles" data-selectum="city" data-selectum-picked data-selectum-listen="countryPicked" data-selectum-placeholder="Pick City">
+              <h3 class="i-titillium_n">Eurasia</h3>
+              <section>
+                <div class="i-arrow-bottom_after js-raw" data-selectum-current></div>
+                <div class="selectum__select__list" data-selectum-list data-selectum-list-hiddable="country">
+                  <button data-selectum-reset>Any</button>
+                  <ul data-selectum-hidden-unless="UK">
+                    <li data-selectum-id="LND" data-selectum-val="London">London</li>
+                    <li data-selectum-id="BKW" data-selectum-val="Bakewell">Bakewell</li>
+                  </ul>
+                  <ul data-selectum-hidden-unless="DE">
+                    <li data-selectum-id="BRL" data-selectum-val="Berlin">Berlin</li>
+                    <li data-selectum-id="AAC" data-selectum-val="Aachen">Aachen</li>
+                  </ul>
+                  <ul data-selectum-hidden-unless="FR">
+                    <li data-selectum-id="PRS" data-selectum-val="Paris">Paris</li>
+                    <li data-selectum-id="MRC" data-selectum-val="Marseille">Marseille</li>
+                  </ul>
+                  <ul data-selectum-hidden-unless="UA">
+                    <li data-selectum-id="ODS" data-selectum-val="Odessa">Odessa</li>
+                    <li data-selectum-id="KIV" data-selectum-val="Kiev">Kiev</li>
+                  </ul>
+                </div>
+              </section>
+            </aside>
+          </div>
+        </article>
+        <hr>
+        <article class="row align-spaced medium-uncollapse">
+          <h4 class="small-12 columns i-titillium_sb">Main Select and Dependent one reset</h4>
+          <div class="small-12 medium-6 columns">
+            <aside class="js-no-styles" data-selectum="countryReset" data-selectum-picker data-selectum-emit="countryResetPicked" data-selectum-emit-reset="clearCountryResetCities" data-selectum-placeholder="Pick Country">
+              <h3 class="i-titillium_n">Eurasia</h3>
+              <div class="selectum__select">
+                <span class="i-arrow-bottom_after js-raw" data-selectum-current></span>
+                <ul class="selectum__select__list" data-selectum-list>
+                  <li data-selectum-reset>Any</li>
+                  <li data-selectum-id="UK" data-selectum-val="United Kingdom">United Kingdom</li>
+                  <li data-selectum-id="DE" data-selectum-val="Germany">Germany</li>
+                  <li data-selectum-id="FR" data-selectum-val="France">France</li>
+                  <li data-selectum-id="UA" data-selectum-val="Ukraine">Ukraine</li>
+                </ul>
+              </div>
+            </aside>
+          </div>
+          <div class="small-12 medium-6 columns">
+            <aside class="js-no-styles" data-selectum="cityReset" data-selectum-picked data-selectum-listen="countryResetPicked" data-selectum-listen-reset="clearCountryResetCities" data-selectum-placeholder="Pick City">
+              <h3 class="i-titillium_n">Eurasia</h3>
+              <section>
+                <div class="i-arrow-bottom_after js-raw" data-selectum-current></div>
+                <div class="selectum__select__list" data-selectum-list data-selectum-list-hiddable="countryReset">
+                  <button data-selectum-reset>Any</button>
+                  <ul data-selectum-hidden-unless="UK">
+                    <li data-selectum-id="LND" data-selectum-val="London">London</li>
+                    <li data-selectum-id="BKW" data-selectum-val="Bakewell">Bakewell</li>
+                  </ul>
+                  <ul data-selectum-hidden-unless="DE">
+                    <li data-selectum-id="BRL" data-selectum-val="Berlin">Berlin</li>
+                    <li data-selectum-id="AAC" data-selectum-val="Aachen">Aachen</li>
+                  </ul>
+                  <ul data-selectum-hidden-unless="FR">
+                    <li data-selectum-id="PRS" data-selectum-val="Paris">Paris</li>
+                    <li data-selectum-id="MRC" data-selectum-val="Marseille">Marseille</li>
+                  </ul>
+                  <ul data-selectum-hidden-unless="UA">
+                    <li data-selectum-id="ODS" data-selectum-val="Odessa">Odessa</li>
+                    <li data-selectum-id="KIV" data-selectum-val="Kiev">Kiev</li>
+                  </ul>
+                </div>
+              </section>
+            </aside>
+          </div>
+        </article>
+        <hr>
+        <article class="row align-spaced medium-uncollapse">
+          <h4 class="small-12 columns i-titillium_sb">Select rendered by client with a default template</h4>
+          <div class="small-12 medium-6 columns">
+            <aside class="js-no-styles" data-selectum="fruit" data-selectum-picker data-selectum-emit="fruit:chosen" data-selectum-emit-reset="sell:fruits" data-selectum-placeholder="Get your Fruit" data-selectum-head="Buy a Fruit" data-selectum-render></aside>
+          </div>
+        </article>
+        <hr>
+        <article class="row align-spaced medium-uncollapse">
+          <h4 class="small-12 columns i-titillium_sb">Select rendered by client with a default template</h4>
+          <div class="small-12 medium-6 columns">
+            <aside class="js-no-styles" data-selectum="fruit" data-selectum-head="Fruit Type" data-selectum-picked data-selectum-listen="fruit:chosen" data-selectum-listen-reset="sell:fruits" data-selectum-placeholder="Get your Fruit" data-selectum-head="Buy a Fruit" data-selectum-render data-selectum-hiddable="fruit"></aside>
+          </div>
+        </article>
+        <hr>
+        <article class="row align-spaced medium-uncollapse">
+          <h4 class="small-12 columns i-titillium_sb">Select rendered by client with a custom template</h4>
+          <div class="small-12 medium-6 columns">
+            <aside class="js-no-styles" data-selectum="fruit" data-selectum-head="Fruit Type" data-selectum-picker data-selectum-emit="fruit:chosen" data-selectum-emit-reset="sell:fruits" data-selectum-placeholder="Get your Fruit" data-selectum-head="Buy a Fruit" data-selectum-render data-selectum-exist>
+              <h3 class="i-titillium_n"><%=head%></h3>
+              <div class="selectum__select">
+                <span class="i-arrow-bottom_after js-raw" data-selectum-current></span>
+                <ul class="selectum__select__list" data-selectum-list>
+                  <li data-selectum-reset>Any</li>
+                  <% for ( var i = 0; i < items.length; i++ ) { %>
+                  <li data-selectum-id="<%=items[i].id%>" data-selectum-val="<%=items[i].val%>"><%=items[i].val%></li>
+                  <% } %>
+                </ul>
+              </div>
+            </aside>
+          </div>
+        </article>
+      </section>
+    </main>
+    <footer></footer>
+    <script src="js/selectum.min.js"></script>
+    <script>
+      var selectums = [];
+      [].slice.call( document.querySelectorAll('[data-selectum]') ).forEach( function(el) {
+        selectums.push(new Selectum(el));
+      });
+      selectums.forEach(function(v,i){
+        switch (false) {
+          case !(v.options.render && !v.options.exist && v.options.picker):
+            window.setTimeout(function() {
+              v.render({
+                head: v.options.head || 'Any other head', // Optional
+                items: [
+                  {id : 0, val : 'apple'},
+                  {id : 1, val : 'banana'},
+                  {id : 2, val : 'tangerin'}
+                ]
+              })
+            }, Math.random() * 2000 + 1000);
+            break;
+          case !(v.options.render && !v.options.exist && v.options.picked):
+            window.setTimeout(function() {
+              v.render({
+                head: v.options.head || 'Any other head', // Optional
+                listen: 'fruit', // Optional, just for example, unnecessary here as it's duplicated via data-selectum-hiddable attribute
+                items: [
+                  {
+                    id : '0',
+                    val : [
+                      {id : 00, val : 'green'},
+                      {id : 01, val : 'red'},
+                      {id : 02, val : 'yellow'}
+                    ]
+                  },
+                  {
+                    id : '1',
+                    val : [
+                      {id : 10, val : 'fresh'},
+                      {id : 11, val : 'rotten'},
+                      {id : 12, val : 'green'}
+                    ]
+                  },
+                  {
+                    id : '2',
+                    val : [
+                      {id : 20, val : 'sweet'},
+                      {id : 21, val : 'sour'},
+                      {id : 22, val : 'mild'}
+                    ]
+                  }
+                ]
+              })
+            }, Math.random() * 2000 + 1000);
+            break;
+          case !(v.options.exist):
+            window.setTimeout(function() {
+              v.render({
+                items: [
+                  {id : 0, val : 'apple'},
+                  {id : 1, val : 'banana'},
+                  {id : 2, val : 'tangerin'}
+                ]
+              })
+            }, 3000);
+
+            window.setTimeout(function() {
+              v.render({
+                head: 'Totally changed head',
+                items: [
+                  {id : 0, val : 'some'},
+                  {id : 1, val : 'other'},
+                  {id : 2, val : 'array'},
+                  {id : 3, val : 'maybe'},
+                  {id : 4, val : 'enormous'}
+                ]
+              })
+            }, 7000);
+            break;
+        }
+      });
+    </script>
+  </body>
+</html>
