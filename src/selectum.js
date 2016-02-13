@@ -202,7 +202,7 @@
     Selectum.prototype._init = function(triggered){
         if (!this.options.render || triggered) {
             this._setDOMElements();
-            this._initEvents();
+            !this.options.inited && this._initEvents();
             this._setActive();
             this._disabledIfDependent();
             this._addHiddenStyles();
@@ -337,7 +337,8 @@
     Selectum.prototype._initResetButton = function() {
         var _this = this;
         if (_this.DOMElements.resetButton) {
-            _this.DOMElements.resetButton.addEventListener('click',function(){
+            _this.DOMElements.resetButton.addEventListener('click',function(e){
+                e.stopPropagation();
                 _this.DOMElements.currentFilter.textContent = '';
                 _this.DOMElements.currentList.classList.remove('js-open');
                 _this._toggleArrows();
