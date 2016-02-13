@@ -10,7 +10,7 @@
 
 > This is fully jQuery or other libraries independent plugin, can be fully configured with ```[data-attributes]``` or via JS constructor function.
 
-> One of the main advantages of this plugin is that it doesn't render any precompiled layout, you can attach this plugin to any HTML structure and configure it via data attributes or proper css classes. It acts as a separate module or web component.
+> It's always annoying and irretating when minified labrary renders it's markup and you have to debug it, if your HTML structure totally differs. One of the main advantages of this plugin is that it doesn't render any precompiled layout, you can attach this plugin to any HTML structure and configure it via data attributes or proper css classes. It acts as a separate module or web component.
 
 ##### It uses:
 1. classList API
