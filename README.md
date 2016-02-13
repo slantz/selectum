@@ -353,8 +353,8 @@ window.setTimeout(function() {
     items: [
        {id : 0, val : 'some'},
        {id : 1, val : 'other'},
-       {id : 2, val : 'array'}
-       {id : 3, val : 'maybe'}
+       {id : 2, val : 'array'},
+       {id : 3, val : 'maybe'},
        {id : 4, val : 'enormous'}
     ]
   })
