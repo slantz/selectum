@@ -512,29 +512,29 @@
     window.Selectum = Selectum;
 
 })(window);
-var select = null;
-[].slice.call( document.querySelectorAll('[data-selectum]') ).forEach( function(el) {
-    select = new Selectum(el);
-});
-
-window.setTimeout(function() {
-    select.render({
-        head: select.options.head || 'Any other head', // Optional
-        items: [
-            {id : 0, val : 'apple'},
-            {id : 1, val : 'banana'},
-            {id : 2, val : 'tangerin'}
-        ]
-    })
-}, 3000);
-
-window.setTimeout(function() {
-    select.render({
-        head: select.options.head || 'Any other head', // Optional
-        items: [
-            {id : 0, val : 'some'},
-            {id : 1, val : 'other'},
-            {id : 2, val : 'array'}
-        ]
-    })
-}, 7000);
+//var select = null;
+//[].slice.call( document.querySelectorAll('[data-selectum]') ).forEach( function(el) {
+//    select = new Selectum(el);
+//});
+//
+//window.setTimeout(function() {
+//    select.render({
+//        head: select.options.head || 'Any other head', // Optional
+//        items: [
+//            {id : 0, val : 'apple'},
+//            {id : 1, val : 'banana'},
+//            {id : 2, val : 'tangerin'}
+//        ]
+//    })
+//}, 3000);
+//
+//window.setTimeout(function() {
+//    select.render({
+//        head: select.options.head || 'Any other head', // Optional
+//        items: [
+//            {id : 0, val : 'some'},
+//            {id : 1, val : 'other'},
+//            {id : 2, val : 'array'}
+//        ]
+//    })
+//}, 7000);
