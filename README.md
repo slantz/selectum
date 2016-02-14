@@ -66,6 +66,28 @@
   - off
   - render
 
+##### Events:
+  - click
+  - reset
+  - init:url
+
+###### Usage:
+```javascript
+var select = new Selectum(document.querySelector('[data-selectum]'));
+
+select.on('click', function(selectedVal){
+    // triggered when some option was selected
+});
+
+select.on('reset', function(selectedVal){
+    // triggered when reset button was clicked
+});
+
+select.on('init:url', function(selectedVal){
+    // triggered when value was set from URL on initiation
+});
+```
+
 > IE10+
 
 [Demo](https://slantz.github.io/selectum/)
