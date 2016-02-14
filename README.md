@@ -61,6 +61,10 @@
     hiddable: 'fruit'
   });
 ```
+##### Methods:
+  - on
+  - off
+  - render
 
 > IE10+
 
