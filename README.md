@@ -86,6 +86,8 @@ select.on('reset', function(selectedVal){
 select.on('init:url', function(selectedVal){
     // triggered when value was set from URL on initiation
 });
+
+select.off('click');
 ```
 
 > IE10+
