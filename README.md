@@ -1,5 +1,7 @@
 # Selectum
 
+[Demo](https://slantz.github.io/selectum/)
+
 [![selectum on NPM](https://img.shields.io/npm/v/selectum.svg)](https://www.npmjs.com/package/selectum)
 [![selectum on Bower](https://img.shields.io/bower/v/selectum.svg)](http://bower.io/search/?q=selectum)
 [![npm downloads](https://img.shields.io/npm/dm/selectum.svg)](https://www.npmjs.com/package/selectum)
@@ -92,7 +94,6 @@ select.off('click');
 
 > IE10+
 
-[Demo](https://slantz.github.io/selectum/)
 
 ### Simple HTML5 Dropdown:
 > This is single select which updates history pushState, configured via data-attributes and has no dependent selects.
