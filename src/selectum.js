@@ -202,7 +202,7 @@
     Selectum.prototype._init = function(triggered){
         if (!this.options.render || triggered) {
             this._setDOMElements();
-            !this.options.inited && this._initEvents();
+            this._initEvents();
             this._setActive();
             this._disabledIfDependent();
             this._addHiddenStyles();
