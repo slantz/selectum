@@ -269,6 +269,8 @@
     Selectum.prototype._disabledIfDependent = function() {
         if (this.options.picked) {
             this.el.classList.add('js-disabled');
+            this.DOMElements.currentFilter.classList.remove('i-arrow-bottom_after');
+            this.DOMElements.currentFilter.classList.add('js-raw', 'i-arrow-bottom-disabled_after');
         }
     };
 
