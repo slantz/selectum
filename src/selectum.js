@@ -319,13 +319,21 @@
     };
 
     Selectum.prototype._initEvents = function(){
-        this._toggleDropdown();
-        this._onOptionClick();
-        this._createResetModelEvent();
-        this._createResetEvent();
-        this._clearCurrentOnExtraPick();
-        this._resetIfDependent();
+        if (!this.options.inited) {
+            this._createResetModelEvent();
+            this._createResetEvent();
+            this._clearCurrentOnExtraPick();
+            this._resetIfDependent();
+        }
+        if (this.el.querySelector('[data-selectum-clickable]') !== null) {
+            this._toggleDropdown();
+        } else {
+            if (!this.options.inited) {
+                this._toggleDropdown();
+            }
+        }
         this._initResetButton();
+        this._onOptionClick();
     };
 
     Selectum.prototype.on = function(funcName, handler) {
