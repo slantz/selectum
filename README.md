@@ -69,15 +69,24 @@
   - render
 
 ##### Events:
-  - click
+  - before:select
+  - select
   - reset
+  - reset:picked
+  - before:open
+  - open
   - init:url
+  - url:update
 
 ###### Usage:
 ```javascript
 var select = new Selectum(document.querySelector('[data-selectum]'));
 
-select.on('click', function(selectedVal){
+select.on('before:select', function(oldVal){
+    // triggered when before some option would be selected
+});
+
+select.on('select', function(selectedVal){
     // triggered when some option was selected
 });
 
@@ -85,8 +94,24 @@ select.on('reset', function(selectedVal){
     // triggered when reset button was clicked
 });
 
+select.on('reset:picked', function(selectedVal){
+    // triggered when select was reset by the picker one
+});
+
+select.on('before:open', function(selectedVal){
+    // triggered when select was clicked and not opened yet
+});
+
+select.on('open', function(selectedVal){
+    // triggered when select was opened after click
+});
+
 select.on('init:url', function(selectedVal){
     // triggered when value was set from URL on initiation
+});
+
+select.on('url:update', function(selectedVal){
+    // triggered if select should update url and after URL was updated with selected value
 });
 
 select.off('click');

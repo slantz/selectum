@@ -372,6 +372,7 @@
                     _this.DOMElements.currentFilter.classList.add('js-raw');
                     _this._setDefaultPlaceholder();
                     Selectum.urlUpdater(_this.el.dataset.selectum, '');
+                    callCallback(_this, 'reset');
                 }
                 if (_this.options.picked) {
                     _this.options.picked = false;
@@ -398,6 +399,7 @@
                 _this.DOMElements.currentFilter.classList.remove('i-arrow-bottom_after');
                 _this._setDefaultPlaceholder();
                 Selectum.urlUpdater(_this.el.dataset.selectum, '');
+                callCallback(_this, 'reset:picked');
             });
         }
     }
@@ -418,8 +420,10 @@
         var _this = this;
         _this.DOMElements.currentClickable.addEventListener('click', function(){
             if (!_this.options.picked) {
+                callCallback(_this, 'before:open');
                 _this.DOMElements.currentList.classList.toggle('js-open');
                 _this._toggleArrows();
+                callCallback(_this, 'open');
             }
         });
     };
@@ -429,6 +433,7 @@
         [].slice.call( _this.DOMElements.currentListElement ).forEach( function(el) {
             el.addEventListener('click', function(e){
                 e.stopPropagation();
+                callCallback(_this, 'before:select');
                 _this.DOMElements.currentList.classList.remove('js-open');
                 _this.DOMElements.currentFilter.classList.remove('js-raw');
                 _this._toggleArrows();
@@ -439,7 +444,7 @@
                 _this._showSubsets(e.target.dataset.selectumId);
                 _this._updateUrl();
                 _this._emitEvent();
-                callCallback(_this, 'click');
+                callCallback(_this, 'select');
             });
         });
     };
@@ -449,6 +454,7 @@
             var url = location.search !== '' ? '&' : '?';
             url += this.el.dataset.selectum + '=' + this.options.selected;
             Selectum.urlUpdater(this.el.dataset.selectum, this.options.selected);
+            callCallback(this, 'url:update');
         }
     }
 
