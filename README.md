@@ -1,7 +1,5 @@
 # Selectum
 
-[Demo](https://slantz.github.io/selectum/)
-
 [![selectum on NPM](https://img.shields.io/npm/v/selectum.svg)](https://www.npmjs.com/package/selectum)
 [![selectum on Bower](https://img.shields.io/bower/v/selectum.svg)](http://bower.io/search/?q=selectum)
 [![npm downloads](https://img.shields.io/npm/dm/selectum.svg)](https://www.npmjs.com/package/selectum)
@@ -13,6 +11,8 @@
 > This is fully jQuery or other libraries independent plugin, can be fully configured with ```[data-attributes]``` or via JS constructor function.
 
 > It's always annoying and irretating when minified labrary renders it's markup and you have to debug it, if your HTML structure totally differs. One of the main advantages of this plugin is that it doesn't render any precompiled layout, you can attach this plugin to any HTML structure and configure it via data attributes or proper css classes. It acts as a separate module or web component.
+
+### [Demo](https://slantz.github.io/selectum/)
 
 ##### It uses:
 1. classList API
