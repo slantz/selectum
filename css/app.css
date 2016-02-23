@@ -59,6 +59,7 @@ article {
 
 main {
     z-index: 0;
+    padding: 24px 0;
 }
 
 h1,
@@ -68,6 +69,7 @@ h3 {
 
 h4 {
    color: #9C876A;
+    margin-bottom: 2rem;
 }
 
 a {
@@ -129,6 +131,11 @@ article:nth-last-of-type(8) {
     width : calc(300rem / 16);
     margin: 0 auto;
     background-color: #CDDFE9;
+}
+
+[data-selectum-temp-head] {
+    padding: 10px 5px;
+    text-align: center;
 }
 
 [data-selectum] * {
