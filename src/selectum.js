@@ -117,7 +117,7 @@
             callbacks: {}
         }, {
             render: this.el.dataset.hasOwnProperty('selectumRender'),
-            exist: this.el.dataset.hasOwnProperty('selectumExist'),
+            exist: this.el.dataset.hasOwnProperty('selectumExist') ? this.el.dataset.selectumExist || 'Loading...' : false,
             head: this.el.dataset.hasOwnProperty('selectumHead') ? this.el.dataset.selectumHead : '',
             picker: this.el.dataset.hasOwnProperty('selectumPicker'),
             picked: this.el.dataset.hasOwnProperty('selectumPicked'),
@@ -211,6 +211,9 @@
             this._setFromSearchParams();
             this.options.inited = true;
         }
+        if (this.options.render && !triggered) {
+            this._hideExistingTemplate();
+        }
     };
 
     Selectum.prototype.render = function(data) {
@@ -246,9 +249,6 @@
                             type = 'picked';
                         }
                         if (this.options.exist) {
-                            if (!templateCache.hasOwnProperty(this.el.dataset.selectum)) {
-                                templateCache[this.el.dataset.selectum] = this.el.innerHTML.replace(/&lt;/gi, '<').replace(/&gt;/gi, '>');
-                            }
                             this.el.innerHTML = Selectum.tmpl(templateCache[this.el.dataset.selectum], data, true);
                         } else {
                             this.el.innerHTML = Selectum.tmpl(type, data);
@@ -261,6 +261,15 @@
             console.error('Please provide data Object to render');
         }
     };
+
+    Selectum.prototype._hideExistingTemplate = function() {
+        if (this.options.exist) {
+            if (!templateCache.hasOwnProperty(this.el.dataset.selectum)) {
+                templateCache[this.el.dataset.selectum] = this.el.innerHTML.replace(/&lt;/gi, '<').replace(/&gt;/gi, '>');
+            }
+            this.el.innerHTML = '<h3 data-selectum-temp-head>' + this.options.exist + '</h3>'
+        }
+    }
 
     Selectum.prototype._setDefaultPlaceholder = function() {
         this.DOMElements.currentFilter.textContent = this.options.defaultText;

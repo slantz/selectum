@@ -45,6 +45,7 @@
   - [data-selectum-placeholder]
   - [data-selectum-update-url]
   - [data-selectum-url-fetch]
+  - [data-selectum-temp-head] (for custom templates to attach styles to 'Loading...' label)
 - JS:
 ```javascript
   new Selectum(el, {
@@ -433,7 +434,7 @@ window.setTimeout(function() {
 > This will be rendered into
 
 ```html
-<aside data-selectum="fruit" data-selectum-head="Fruit Type" data-selectum-picker data-selectum-emit="fruit:chosen" data-selectum-emit-reset="sell:fruits" data-selectum-placeholder="Get your Fruit" data-selectum-head="Buy a Fruit" data-selectum-render data-selectum-exist>
+<aside data-selectum="stuff" data-selectum-head="Item Type" data-selectum-picker data-selectum-emit="stuff:chosen" data-selectum-emit-reset="sell:stuff" data-selectum-placeholder="Get your Fruit" data-selectum-head="Buy a Fruit" data-selectum-render data-selectum-exist="Loading stuff...'>
     <h3 class="selectum__head">Totally changd head</h3>
     <div class="selectum__select">
         <span class="selectum__select__current i-arrow-bottom_after js-raw" data-selectum-current>Get your Fruit</span>
