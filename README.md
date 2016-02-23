@@ -431,7 +431,14 @@ window.setTimeout(function() {
 </aside>
 ```
 
-> This will be rendered into
+> This will be rendered straight into this first
+
+```html
+<aside data-selectum="stuff" data-selectum-head="Item Type" data-selectum-picker data-selectum-emit="stuff:chosen" data-selectum-emit-reset="sell:stuff" data-selectum-placeholder="Get your Fruit" data-selectum-head="Buy a Fruit" data-selectum-render data-selectum-exist="Loading stuff...'>
+    <h3 data-selectum-temp-head>Loading stuff...</h3>
+</aside>
+```
+> Then after 3 and 7 secs into this correspondingly
 
 ```html
 <aside data-selectum="stuff" data-selectum-head="Item Type" data-selectum-picker data-selectum-emit="stuff:chosen" data-selectum-emit-reset="sell:stuff" data-selectum-placeholder="Get your Fruit" data-selectum-head="Buy a Fruit" data-selectum-render data-selectum-exist="Loading stuff...'>
