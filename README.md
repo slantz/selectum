@@ -45,7 +45,7 @@
   - [data-selectum-placeholder]
   - [data-selectum-update-url]
   - [data-selectum-url-fetch]
-  - [data-selectum-temp-head] (for custom templates to attach styles to 'Loading...' label)
+  - [data-selectum-temp-head] \(for custom templates to attach styles to 'Loading...' label\)
 - JS:
 ```javascript
   new Selectum(el, {
